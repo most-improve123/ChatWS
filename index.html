@@ -758,41 +758,40 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
         async function sendToWebhook(message) {
+    try {
+        const response = await fetch(config.webhook.url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: message,
+                sessionId: currentSessionId || "new-session"
+            })
+        });
+
+        const data = await response.json();
+        console.log("✅ Respuesta recibida:", data);
+
+        // Solo mostrar SayText si existe
+        let botReply = "🤖 No hubo respuesta válida.";
+        if (data.SayText) {
+            botReply = data.SayText;
+        } else if (data.output) {
             try {
-                const response = await fetch(config.webhook.url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        message: message,
-                        sessionId: currentSessionId || "new-session"
-                    })
-                });
-                let data;
-                try {
-                    data = await response.json();
-                } catch (err) {
-                    console.error("❌ Error al parsear JSON:", err);
-                    addMessage("bot", "⚠️ No se pudo interpretar la respuesta del servidor.");
-                    return;
-                }
-                console.log("✅ Respuesta recibida:", data);
-                let botReply = "";
-                if (typeof data === "string") {
-                    botReply = data;
-                } else if (data && typeof data.text === "string") {
-                    botReply = data.text;
-                } else if (data && typeof data.message === "string") {
-                    botReply = data.message;
-                } else {
-                    console.warn("⚠️ La respuesta no contiene texto reconocible:", data);
-                    botReply = "🤖 No entendí la respuesta del servidor.";
-                }
-                addMessage("bot", botReply);
-            } catch (error) {
-                console.error("🚨 Error al enviar mensaje:", error);
-                addMessage("bot", "❌ Ocurrió un error al conectar con el servidor.");
+                const parsedOutput = JSON.parse(data.output.replace(/```json\n|```/g,'').trim());
+                botReply = parsedOutput.SayText || JSON.stringify(parsedOutput);
+            } catch {
+                botReply = data.output;
             }
         }
+
+        addMessage("bot", botReply);
+
+    } catch (error) {
+        console.error("🚨 Error al enviar mensaje:", error);
+        addMessage("bot", "❌ Ocurrió un error al conectar con el servidor.");
+    }
+}
+
         function generateUUID() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 const r = Math.random() * 16 | 0;
@@ -872,13 +871,15 @@
                 console.error('Error:', error);
             }
         }
+       
+
         async function sendMessage(message) {
             const messageData = {
                 action: "sendMessage",
                 sessionId: currentSessionId,
                 route: config.webhook.route,
                 chatInput: message,
-                metadata: {
+                metadata: { 
                     userId: ""
                 }
             };
