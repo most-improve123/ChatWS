@@ -740,7 +740,7 @@
         const chatInterface = chatContainer.querySelector('.chat-interface');
         const messagesContainer = chatContainer.querySelector('.chat-messages');
         const textarea = chatInterface.querySelector('.chat-input textarea');
-        const sendButton = chatContainer.querySelector('.chat-input button[type="submit"]');
+      
         const uploadButton = chatContainer.querySelector('.upload-button');
         const emojiButton = chatContainer.querySelector('.emoji-button');
         const emojiPicker = chatContainer.querySelector('.emoji-picker');
@@ -953,6 +953,30 @@
                 addMessage('bot', "Lo siento, hubo un error al enviar tu mensaje.");
             }
         }
+        // Función centralizada para enviar mensajes
+function handleSendMessage() {
+    const message = textarea.value.trim();
+    if (message) {
+        sendMessage(message);
+        textarea.value = '';
+    }
+}
+
+// Vincula el evento click del botón de enviar
+const sendButton = chatContainer.querySelector('.chat-input button[type="submit"]');
+sendButton.addEventListener("click", (e) => {
+    e.preventDefault(); // Solo necesario si el botón está dentro de un <form>
+    handleSendMessage();
+});
+
+// Vincula el evento keypress del textarea
+textarea.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSendMessage();
+    }
+});
+
         function showOptions(options) {
             const optionsContainer = document.createElement('div');
             optionsContainer.className = 'options-container';
