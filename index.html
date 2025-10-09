@@ -19,15 +19,17 @@
             --message-bg-bot: #f0f0f0;
             --message-text-color: #000000;
             --open-animation-duration: 0.5s;
-            --close-animation-duration: 0.6s;
+            --close-animation-duration: 0.5s;
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         body {
             color: #333;
             min-height: 100vh;
@@ -36,6 +38,7 @@
             align-items: center;
             padding: 20px;
         }
+
         .n8n-chat-widget .chat-container {
             position: fixed;
             bottom: 20px;
@@ -53,14 +56,17 @@
             opacity: 0;
             display: none;
         }
+
         .n8n-chat-widget .chat-container.open {
             display: flex;
             flex-direction: column;
             animation: openAnimation var(--open-animation-duration) forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
         .n8n-chat-widget .chat-container.closing {
-            animation: closeAnimation var(--close-animation-duration) forwards cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: closeAnimation var(--close-animation-duration) forwards ease-out;
         }
+
         @keyframes openAnimation {
             0% {
                 opacity: 0;
@@ -74,6 +80,7 @@
                 transform: translateY(0) scale(1);
             }
         }
+
         @keyframes closeAnimation {
             0% {
                 opacity: 1;
@@ -84,6 +91,7 @@
                 transform: translateY(20px) scale(0.9);
             }
         }
+
         .n8n-chat-widget .brand-header {
             background: linear-gradient(135deg, #ffd500, #fda500) !important;
             padding: 20px;
@@ -96,6 +104,7 @@
             border-radius: var(--border-radius) var(--border-radius) 0 0;
             overflow: hidden;
         }
+
         .wave-container {
             position: relative;
             width: 100%;
@@ -106,12 +115,15 @@
             transform: rotate(180deg);
             background: transparent !important;
         }
+
         .wave-container svg path {
             fill: #fda500 !important;
         }
+
         .n8n-chat-widget .brand-header * {
             color: var(--white) !important;
         }
+
         .n8n-chat-widget .brand-header img {
             width: 90px;
             height: 90px;
@@ -123,9 +135,11 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s ease;
         }
+
         .n8n-chat-widget .brand-header img:hover {
             transform: rotate(5deg) scale(1.05);
         }
+
         .n8n-chat-widget .brand-header .brand-info {
             display: flex;
             flex-direction: column;
@@ -133,22 +147,26 @@
             z-index: 2;
             gap: 8px;
         }
+
         .n8n-chat-widget .brand-header span.brand-name {
             font-size: 15px;
             font-weight: bold;
             z-index: 2;
         }
+
         .n8n-chat-widget .brand-header span.brand-title {
             font-size: 13px;
             opacity: 0.9;
             z-index: 2;
         }
+
         .n8n-chat-widget .brand-header .status {
             display: flex;
             align-items: center;
             gap: 6px;
             z-index: 2;
         }
+
         .n8n-chat-widget .brand-header .status-indicator {
             width: 10px;
             height: 10px;
@@ -157,6 +175,7 @@
             border: 1px solid white;
             animation: pulse 1.5s infinite;
         }
+
         @keyframes pulse {
             0% {
                 transform: scale(0.95);
@@ -171,11 +190,13 @@
                 box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
             }
         }
+
         .n8n-chat-widget .brand-header .status-text {
             font-size: 12px;
             font-weight: 500;
             opacity: 0.9;
         }
+
         .n8n-chat-widget .close-button {
             position: absolute;
             right: 13px;
@@ -204,9 +225,7 @@
 
            
         }
-        .n8n-chat-widget .close-button:active {
-            transform: translateY(-50%) rotate(45deg) scale(0.9);
-        }
+
         .n8n-chat-widget .new-conversation {
             padding: 25px 20px;
             text-align: center;
@@ -218,6 +237,7 @@
             overflow-y: auto;
             background: var(--white);
         }
+
         .start-button {
             background: linear-gradient(135deg, #FDC307, #FFBC00);
             color: var(--dark-gray);
@@ -232,11 +252,13 @@
             transition: var(--transition);
             margin-top: 10px;
         }
+
         .start-button:hover {
             background: linear-gradient(135deg, #FFBC00, #FFB300);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
+
         .welcome-text {
             font-size: 22px;
             font-weight: 600;
@@ -246,6 +268,7 @@
             text-align: center;
             animation: fadeIn 0.8s ease-out 0.3s both;
         }
+
         .sub-welcome-text {
             font-size: 16px;
             color: #777;
@@ -253,6 +276,7 @@
             text-align: center;
             animation: fadeIn 0.8s ease-out 0.3s both;
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -263,6 +287,7 @@
                 transform: translateY(0);
             }
         }
+
         .welcome-text span {
             display: block;
             font-weight: 400;
@@ -270,6 +295,7 @@
             margin-top: 10px;
             color: #555;
         }
+
         .options-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -278,6 +304,7 @@
             max-width: 300px;
             margin: 20px auto;
         }
+
         .option-btn {
             white-space: pre-line;
             background: linear-gradient(135deg, #FDC307, #FFBC00);
@@ -294,17 +321,20 @@
             animation-delay: calc(0.1s * var(--i));
             transition: var(--transition);
         }
+
         .option-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
             background: linear-gradient(135deg, #FFBC00, #FFB300);
         }
+
         .free-text-area-container {
             width: 100%;
             display: flex;
             margin-top: 20px;
             gap: 10px;
         }
+
         .free-text-area {
             flex: 1;
             padding: 12px 15px;
@@ -320,14 +350,17 @@
             width: 100%;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
+
         .free-text-area:focus {
             outline: none;
             border-color: var(--primary-yellow);
             box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
         }
+
         .free-text-area::placeholder {
             color: #999;
         }
+
         .free-text-send-button {
             background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
             color: var(--dark-gray);
@@ -343,25 +376,30 @@
             justify-content: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
+
         .free-text-send-button:hover {
             background: linear-gradient(135deg, var(--dark-yellow), #FFB300);
             transform: scale(1.1);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
         }
+
         .n8n-chat-widget .response-text {
             font-size: 14px;
             color: #777;
             margin: 15px 0 0;
             font-style: italic;
         }
+
         .n8n-chat-widget .chat-interface {
             display: none;
             flex-direction: column;
             height: calc(100% - 110px);
         }
+
         .n8n-chat-widget .chat-interface.active {
             display: flex;
         }
+
         .n8n-chat-widget .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -373,6 +411,7 @@
             position: relative;
             gap: 10px;
         }
+
         .n8n-chat-widget .chat-message {
             padding: 12px 16px;
             margin: 5px 0;
@@ -384,6 +423,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             transition: var(--transition);
         }
+
         .n8n-chat-widget .chat-message.user {
             align-self: flex-end;
             background: var(--message-bg-user);
@@ -391,6 +431,7 @@
             border-bottom-right-radius: 4px;
             border-top-left-radius: 18px;
         }
+
         .n8n-chat-widget .chat-message.bot {
             align-self: flex-start;
             background: var(--message-bg-bot);
@@ -398,10 +439,10 @@
             border-bottom-left-radius: 4px;
             border-top-right-radius: 18px;
         }
-        .curve-divider {
+ .curve-divider {
             position: relative;
             height: 1px;
-            background: linear-gradient(to bottom, var(--white), var(--light-gray));
+            background: linear-gradient(to bottom, var(--light-gray), var(--light-gray));
         }
         .curve-divider::after {
             content: '';
@@ -420,6 +461,7 @@
             align-items: center;
             border-top: 1px solid #eee;
         }
+
         .n8n-chat-widget .chat-input textarea {
             flex: 1;
             padding: 12px 15px;
@@ -434,14 +476,17 @@
             max-height: 100px;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
+
         .n8n-chat-widget .chat-input textarea:focus {
             outline: none;
             border-color: var(--primary-yellow);
             box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
         }
+
         .n8n-chat-widget .chat-input textarea::placeholder {
             color: #999;
         }
+
         .n8n-chat-widget .chat-input button {
             background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
             color: var(--dark-gray);
@@ -457,11 +502,13 @@
             justify-content: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
+
         .n8n-chat-widget .chat-input button:hover {
             background: linear-gradient(135deg, var(--dark-yellow), #FFB300);
             transform: scale(1.1);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
         }
+
         .n8n-chat-widget .chat-toggle {
             position: fixed;
             bottom: 20px;
@@ -482,6 +529,7 @@
             animation: float 3s ease-in-out infinite;
             z-index: 999;
         }
+
         @keyframes float {
             0% {
                 transform: translateY(0px);
@@ -493,12 +541,14 @@
                 transform: translateY(0px);
             }
         }
+
         .n8n-chat-widget .chat-toggle:hover {
             transform: scale(1.1);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
             animation: none;
         }
-        .n8n-chat-widget .chat-footer {
+
+       .n8n-chat-widget .chat-footer {
             padding: 1px;
             text-align: center;
             background: var(--white);
@@ -506,6 +556,7 @@
             font-size: 12px;
             color: #888;
         }
+        
         .emoji-picker {
             position: absolute;
             bottom: 70px;
@@ -519,9 +570,11 @@
             z-index: 1001;
             max-width: 200px;
         }
+
         .emoji-picker.show {
             display: block;
         }
+
         .emoji-picker button {
             background: none;
             border: none;
@@ -530,13 +583,16 @@
             padding: 5px;
             transition: var(--transition);
         }
+
         .emoji-picker button:hover {
             transform: scale(1.2);
         }
+
         .loading-dots {
             display: inline-block;
             margin-left: 8px;
         }
+
         .loading-dots span {
             display: inline-block;
             width: 8px;
@@ -546,15 +602,19 @@
             border-radius: 50%;
             animation: scaleAndColorChange 1.4s infinite ease-in-out;
         }
+
         .loading-dots span:nth-child(1) {
             animation-delay: 0s;
         }
+
         .loading-dots span:nth-child(2) {
             animation-delay: 0.4s;
         }
+
         .loading-dots span:nth-child(3) {
             animation-delay: 0.8s;
         }
+
         @keyframes scaleAndColorChange {
             0% {
                 transform: scale(1);
@@ -569,6 +629,7 @@
                 background-color: var(--primary-yellow);
             }
         }
+
         @media (max-width: 768px) {
             .n8n-chat-widget .chat-container {
                 width: 100%;
@@ -582,18 +643,24 @@
                 height: 80px;
             }
         }
+
+        /* Ajustes para el contenedor principal */
         .n8n-chat-widget .chat-container {
             width: 95vw;
             height: 90vh;
             max-width: 400px;
             max-height: 700px;
         }
+
+        /* Media Queries para Tablets */
         @media (min-width: 768px) and (max-width: 1024px) {
             .n8n-chat-widget .chat-container {
                 width: 80vw;
                 height: 80vh;
             }
         }
+
+        /* Media Queries para Escritorio */
         @media (min-width: 1025px) {
             .n8n-chat-widget .chat-container {
                 width: 400px;
@@ -740,7 +807,7 @@
         const chatInterface = chatContainer.querySelector('.chat-interface');
         const messagesContainer = chatContainer.querySelector('.chat-messages');
         const textarea = chatInterface.querySelector('.chat-input textarea');
-      
+        const sendButton = chatContainer.querySelector('.chat-input button[type="submit"]');
         const uploadButton = chatContainer.querySelector('.upload-button');
         const emojiButton = chatContainer.querySelector('.emoji-button');
         const emojiPicker = chatContainer.querySelector('.emoji-picker');
@@ -757,7 +824,8 @@
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
-        async function sendToWebhook(message) {
+
+ async function sendToWebhook(message) {
     try {
         const response = await fetch(config.webhook.url, {
             method: "POST",
@@ -768,20 +836,29 @@
             })
         });
 
-        const data = await response.json();
+        let data;
+        try {
+            data = await response.json();
+        } catch (err) {
+            console.error("❌ Error al parsear JSON:", err);
+            addMessage("bot", "⚠️ No se pudo interpretar la respuesta del servidor.");
+            return;
+        }
+
         console.log("✅ Respuesta recibida:", data);
 
-        // Solo mostrar SayText si existe
-        let botReply = "🤖 No hubo respuesta válida.";
-        if (data.SayText) {
-            botReply = data.SayText;
-        } else if (data.output) {
-            try {
-                const parsedOutput = JSON.parse(data.output.replace(/```json\n|```/g,'').trim());
-                botReply = parsedOutput.SayText || JSON.stringify(parsedOutput);
-            } catch {
-                botReply = data.output;
-            }
+        // 🔹 Validar si existe el texto antes de usar .replace()
+        let botReply = "";
+
+        if (typeof data === "string") {
+            botReply = data;
+        } else if (data && typeof data.text === "string") {
+            botReply = data.text;
+        } else if (data && typeof data.message === "string") {
+            botReply = data.message;
+        } else {
+            console.warn("⚠️ La respuesta no contiene texto reconocible:", data);
+            botReply = "🤖 No entendí la respuesta del servidor.";
         }
 
         addMessage("bot", botReply);
@@ -791,6 +868,8 @@
         addMessage("bot", "❌ Ocurrió un error al conectar con el servidor.");
     }
 }
+
+
 
         function generateUUID() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -832,151 +911,144 @@
             welcomeText.innerHTML = `${config.branding.welcomeText}<span>What service are you interested in?</span>`;
             optionsContainer.style.display = 'grid';
         });
-        async function startNewConversation() {
-            currentSessionId = generateUUID();
-            const data = {
-                action: "loadPreviousSession",
-                sessionId: currentSessionId,
-                route: config.webhook.route,
-                metadata: {
-                    userId: ""
-                },
-                chatInput: "Initializing conversation"
-            };
-            try {
-                const response = await fetch(config.webhook.url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-API-KEY': 'mi_clave_secreta_123!@#'
-                    },
-                    body: JSON.stringify(data)
-                });
-                if (!response.ok) {
-                    throw new Error(`Error en la respuesta del servidor: ${response.status}`);
-                }
-                const responseText = await response.text();
-                if (!responseText) {
-                    throw new Error('Respuesta vacía del servidor');
-                }
-                const responseData = JSON.parse(responseText);
-                chatContainer.querySelector('.new-conversation').style.display = 'none';
-                chatInterface.classList.add('active');
-                const botMessageDiv = document.createElement('div');
-                botMessageDiv.className = 'chat-message bot';
-                botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
-                messagesContainer.appendChild(botMessageDiv);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-       
+       async function startNewConversation() {
+    currentSessionId = generateUUID();
+    const data = {
+        action: "loadPreviousSession",
+        sessionId: currentSessionId,
+        route: config.webhook.route,
+        metadata: {
+            userId: ""
+        },
+        chatInput: "Initializing conversation"
+    };
 
-        async function sendMessage(message) {
-            const messageData = {
-                action: "sendMessage",
-                sessionId: currentSessionId,
-                route: config.webhook.route,
-                chatInput: message,
-                metadata: { 
-                    userId: ""
-                }
-            };
-            addMessage('user', message);
-            const tempBotMessageDiv = document.createElement('div');
-            tempBotMessageDiv.className = 'chat-message bot';
-            tempBotMessageDiv.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span>';
-            messagesContainer.appendChild(tempBotMessageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            try {
-                const response = await fetch(config.webhook.url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(messageData)
-                });
-                const data = await response.text();
-                console.log("Raw response data:", data);
-                let chatResponse = '';
-                try {
-                    const parsedResponse = JSON.parse(data);
-                    if (parsedResponse.output) {
-                        try {
-                            const outputJSON = JSON.parse(
-                                parsedResponse.output.replace(/```json\n|```/g, '').trim()
-                            );
-                            chatResponse = outputJSON.SayText || JSON.stringify(outputJSON);
-                        } catch (e) {
-                            chatResponse = parsedResponse.output;
-                        }
-                    } else if (parsedResponse.ok && parsedResponse.result) {
-                        chatResponse = parsedResponse.result.text || "✅ Proceso finalizado.";
-                    } else {
-                        chatResponse = parsedResponse.text || parsedResponse.message || "Lo siento, el servidor no devolvió un mensaje válido.";
-                    }
-                } catch (e) {
-                    console.error("Error parsing response:", e, data);
-                    chatResponse = data || "Lo siento, hubo un problema al procesar tu solicitud.";
-                }
-                if (messagesContainer.contains(tempBotMessageDiv)) {
-                    messagesContainer.removeChild(tempBotMessageDiv);
-                }
-                addMessage('bot', chatResponse);
-                if (chatResponse && chatResponse.includes && chatResponse.includes("What service are you interested in?")) {
-                    showOptions([
-                        { text: "Product Design", i: 0 },
-                        { text: "Training", i: 1 },
-                        { text: "Education", i: 2 },
-                        { text: "Something Else", i: 3 }
-                    ]);
-                } else if (chatResponse && chatResponse.includes && chatResponse.includes("When would you like to get started?")) {
-                    showOptions([
-                        { text: "As soon as possible", i: 0 },
-                        { text: "2–4 weeks", i: 1 },
-                        { text: "1–2 months", i: 2 },
-                        { text: "3–6 months", i: 3 }
-                    ]);
-                } else if (chatResponse && chatResponse.includes && chatResponse.includes("Do you have a budget in mind?")) {
-                    showOptions([
-                        { text: "$1,000 - $5,000", i: 0 },
-                        { text: "$5,000 - $10,000", i: 1 },
-                        { text: "$10,000 - $20,000", i: 2 },
-                        { text: "More than $20,000", i: 3 }
-                    ]);
-                }
-            } catch (err) {
-                console.error("Error sending message:", err);
-                if (messagesContainer.contains(tempBotMessageDiv)) {
-                    messagesContainer.removeChild(tempBotMessageDiv);
-                }
-                addMessage('bot', "Lo siento, hubo un error al enviar tu mensaje.");
-            }
+    try {
+        const response = await fetch(config.webhook.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': 'mi_clave_secreta_123!@#' // Asegúrate de que este valor coincida con el de n8n
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la respuesta del servidor: ${response.status}`);
         }
-        // Función centralizada para enviar mensajes
-function handleSendMessage() {
-    const message = textarea.value.trim();
-    if (message) {
-        sendMessage(message);
-        textarea.value = '';
+
+        const responseText = await response.text();
+        if (!responseText) {
+            throw new Error('Respuesta vacía del servidor');
+        }
+
+        const responseData = JSON.parse(responseText);
+        chatContainer.querySelector('.new-conversation').style.display = 'none';
+        chatInterface.classList.add('active');
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.className = 'chat-message bot';
+        botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
+        messagesContainer.appendChild(botMessageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    } catch (error) {
+        console.error('Error:', error);
     }
 }
+async function sendMessage(message) {
+    const messageData = {
+        action: "sendMessage",
+        sessionId: currentSessionId,
+        route: config.webhook.route,
+        chatInput: message,
+        metadata: {
+            userId: ""
+        }
+    };
 
-// Vincula el evento click del botón de enviar
-const sendButton = chatContainer.querySelector('.chat-input button[type="submit"]');
-sendButton.addEventListener("click", (e) => {
-    e.preventDefault(); // Solo necesario si el botón está dentro de un <form>
-    handleSendMessage();
-});
+    addMessage('user', message);
+    const tempBotMessageDiv = document.createElement('div');
+    tempBotMessageDiv.className = 'chat-message bot';
+    tempBotMessageDiv.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span>';
+    messagesContainer.appendChild(tempBotMessageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-// Vincula el evento keypress del textarea
-textarea.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        handleSendMessage();
+    try {
+        const response = await fetch(config.webhook.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(messageData)
+        });
+
+        const data = await response.text();
+        console.log("Raw response data:", data);
+
+        let chatResponse = '';
+
+        try {
+            const parsedResponse = JSON.parse(data);
+
+            if (parsedResponse.output) {
+                try {
+                    const outputJSON = JSON.parse(
+                        parsedResponse.output.replace(/```json\n|```/g, '').trim()
+                    );
+                    chatResponse = outputJSON.SayText || JSON.stringify(outputJSON);
+                } catch (e) {
+                    // output wasn't JSON, use as-is
+                    chatResponse = parsedResponse.output;
+                }
+            } else if (parsedResponse.ok && parsedResponse.result) {
+                chatResponse = parsedResponse.result.text || "✅ Proceso finalizado.";
+            } else {
+                chatResponse = parsedResponse.text || parsedResponse.message || "Lo siento, el servidor no devolvió un mensaje válido.";
+            }
+        } catch (e) {
+            console.error("Error parsing response:", e, data);
+            chatResponse = data || "Lo siento, hubo un problema al procesar tu solicitud.";
+        }
+
+        if (messagesContainer.contains(tempBotMessageDiv)) {
+            messagesContainer.removeChild(tempBotMessageDiv);
+        }
+        addMessage('bot', chatResponse);
+
+        // Show contextual option buttons if the bot message asks for choices
+        if (chatResponse && chatResponse.includes && chatResponse.includes("What service are you interested in?")) {
+            showOptions([
+                { text: "Product Design", i: 0 },
+                { text: "Training", i: 1 },
+                { text: "Education", i: 2 },
+                { text: "Something Else", i: 3 }
+            ]);
+        } else if (chatResponse && chatResponse.includes && chatResponse.includes("When would you like to get started?")) {
+            showOptions([
+                { text: "As soon as possible", i: 0 },
+                { text: "2–4 weeks", i: 1 },
+                { text: "1–2 months", i: 2 },
+                { text: "3–6 months", i: 3 },
+                 { text: "Later", i: 4 }
+            ]);
+        } else if (chatResponse && chatResponse.includes && chatResponse.includes("Do you have a budget in mind?")) {
+            showOptions([
+                { text: "$1,000 - $5,000", i: 0 },
+                { text: "$5,000 - $10,000", i: 1 },
+                { text: "$10,000 - $20,000", i: 2 },
+                { text: "More than $20,000", i: 3 },
+                { text: "Less than $5K", i: 4 },
+                { text: "I'm not the one who decides", i: 5 }
+            ]);
+        }
+
+    } catch (err) {
+        console.error("Error sending message:", err);
+        if (messagesContainer.contains(tempBotMessageDiv)) {
+            messagesContainer.removeChild(tempBotMessageDiv);
+        }
+        addMessage('bot', "Lo siento, hubo un error al enviar tu mensaje.");
     }
-});
+}
 
         function showOptions(options) {
             const optionsContainer = document.createElement('div');
@@ -1078,23 +1150,29 @@ textarea.addEventListener('keypress', (e) => {
                 }
             }
         });
-        sendButton.addEventListener("click", () => {
-            const message = textarea.value.trim();
-            if (message === "") return;
-            addMessage("user", message);
-            textarea.value = "";
-            sendToWebhook(message);
-        });
-        textarea.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                const message = textarea.value.trim();
-                if (message) {
-                    sendMessage(message);
-                    textarea.value = '';
-                }
-            }
-        });
+        // Función centralizada para enviar mensajes
+function handleSendMessage() {
+    const message = textarea.value.trim();
+    if (message) {
+        sendMessage(message);
+        textarea.value = '';
+    }
+}
+
+// Vincula el evento click del botón de enviar
+sendButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    handleSendMessage();
+});
+
+// Vincula el evento keypress del textarea
+textarea.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSendMessage();
+    }
+});
+
         function openChat() {
             if (isChatOpen) return;
             isChatOpen = true;
@@ -1106,16 +1184,11 @@ textarea.addEventListener('keypress', (e) => {
         function closeChat() {
             if (!isChatOpen) return;
             isChatOpen = false;
-            const closeButton = chatContainer.querySelector('.close-button');
-            closeButton.style.transform = 'translateY(-50%) rotate(180deg)';
-            closeButton.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
             chatContainer.classList.add('closing');
             setTimeout(() => {
                 chatContainer.style.display = 'none';
                 chatContainer.classList.remove('closing');
-                closeButton.style.transform = 'translateY(-50%) rotate(0deg)';
-                closeButton.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            }, 600);
+            }, 500);
         }
         toggleButton.addEventListener('click', openChat);
         const closeButtons = chatContainer.querySelectorAll('.close-button');
