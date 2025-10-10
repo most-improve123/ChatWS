@@ -38,18 +38,20 @@
         }
         .n8n-chat-widget .chat-container {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
             z-index: 1000;
-            width: 380px;
-            height: 600px;
+            width: 95vw;
+            height: 90vh;
+            max-width: 400px;
+            max-height: 700px;
             background: var(--white);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             border: 1px solid rgba(0, 0, 0, 0.05);
             overflow: hidden;
             font-family: inherit;
-            transform: translateY(20px);
             opacity: 0;
             display: none;
         }
@@ -62,12 +64,12 @@
             animation: closeAnimation var(--close-animation-duration) forwards ease-out;
         }
         @keyframes openAnimation {
-            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+            0% { opacity: 0; transform: translate(-50%, 50%) scale(0.9); }
+            100% { opacity: 1; transform: translate(-50%, 50%) scale(1); }
         }
         @keyframes closeAnimation {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            0% { opacity: 1; transform: translate(-50%, 50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, 50%) scale(0.9); }
         }
         .n8n-chat-widget .brand-header {
             background: linear-gradient(135deg, #ffd500, #fda500) !important;
@@ -219,7 +221,7 @@
         }
         .sub-welcome-text {
             font-size: 16px;
-            color: #777;
+            color: #755;
             margin-bottom: 20px;
             text-align: center;
             animation: fadeIn 0.5s ease-out both;
@@ -437,7 +439,8 @@
         .n8n-chat-widget .chat-toggle {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
@@ -455,12 +458,12 @@
             z-index: 999;
         }
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
+            0% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+            100% { transform: translateX(-50%) translateY(0px); }
         }
         .n8n-chat-widget .chat-toggle:hover {
-            transform: scale(1.1);
+            transform: translateX(-50%) scale(1.1);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
             animation: none;
         }
@@ -520,26 +523,30 @@
             50% { transform: scale(1.5); background-color: var(--dark-yellow); }
             100% { transform: scale(1); background-color: var(--primary-yellow); }
         }
-        @media (max-width: 768px) {
+        /* --- CONSULTAS DE MEDIOS PARA RESPONSIVIDAD --- */
+        @media (max-width: 480px) {
             .n8n-chat-widget .chat-container {
-                width: 100%;
-                height: 100%;
-                bottom: 0;
-                right: 0;
+                width: 98vw;
+                height: 95vh;
+                max-width: none;
+                max-height: none;
                 border-radius: 0;
             }
             .n8n-chat-widget .brand-header img {
-                width: 80px;
-                height: 80px;
+                width: 70px;
+                height: 70px;
+            }
+            .n8n-chat-widget .chat-toggle {
+                bottom: 15px;
             }
         }
-        .n8n-chat-widget .chat-container {
-            width: 95vw;
-            height: 90vh;
-            max-width: 400px;
-            max-height: 700px;
+        @media (min-width: 481px) and (max-width: 768px) {
+            .n8n-chat-widget .chat-container {
+                width: 90vw;
+                height: 85vh;
+            }
         }
-        @media (min-width: 768px) and (max-width: 1024px) {
+        @media (min-width: 769px) and (max-width: 1024px) {
             .n8n-chat-widget .chat-container {
                 width: 80vw;
                 height: 80vh;
