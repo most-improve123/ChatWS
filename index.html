@@ -37,23 +37,24 @@
             padding: 20px;
         }
         .n8n-chat-widget .chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            width: 380px;
-            height: 600px;
-            background: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            font-family: inherit;
-            transform: translateY(20px);
-            opacity: 0;
-            display: none;
-        }
-        .n8n-chat-widget .chat-container.open {
+    position: fixed;
+    bottom: 8%; /* Cambia de 20px a 50% para centrar verticalmente */
+    left: 50%;  /* Centra horizontalmente */
+    transform: translate(-50%, 50%); /* Ajusta la posición para centrar */
+    z-index: 1000;
+    width: 380px;
+    height: 600px;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    font-family: inherit;
+    transform: translateY(20px);
+    opacity: 0;
+    display: none;
+}
+.n8n-chat-widget .chat-container.open {
             display: flex;
             flex-direction: column;
             animation: openAnimation var(--open-animation-duration) forwards ease-out;
@@ -436,8 +437,8 @@
         /* ----------------------------------------- */
         .n8n-chat-widget .chat-toggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 50px;
+            right: 280px;
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, var(--primary-yellow), var(--dark-yellow));
