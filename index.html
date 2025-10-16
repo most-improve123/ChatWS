@@ -890,25 +890,68 @@
                     })
                 });
                 const data = await response.text();
-                let chatResponse = '';
-                try {
-                    const parsedResponse = JSON.parse(data);
-                    if (parsedResponse.output) {
-                        try {
-                            const outputJSON = JSON.parse(parsedResponse.output.replace(/```json\n|```/g, '').trim());
-                            chatResponse = outputJSON.SayText || JSON.stringify(outputJSON);
-                        } catch (e) {
-                            chatResponse = parsedResponse.output;
-                        }
-                    } else if (parsedResponse.ok && parsedResponse.result) {
-                        chatResponse = parsedResponse.result.text || "✅ Proceso finalizado.";
-                    } else {
-                        chatResponse = parsedResponse.text || parsedResponse.message || "Lo siento, el servidor no devolvió un mensaje válido.";
-                    }
-                } catch (e) {
-                    chatResponse = data || "Lo siento, hubo un problema al procesar tu solicitud.";
-                }
-                if (messagesContainer.contains(tempBotMessageDiv)) {
+let chatResponse = '';
+
+try {
+    // Intentar analizar cualquier estructura JSON posible
+    const parsedResponse = JSON.parse(data);
+
+    // 🟡 Caso 1: respuesta directa de Telegram (tiene "result.text")
+    if (parsedResponse.result && parsedResponse.result.text) {
+        const rawText = parsedResponse.result.text;
+
+        // Intentar extraer un bloque JSON dentro del texto (por ejemplo { "SayText": ... })
+        const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            try {
+                const innerJSON = JSON.parse(jsonMatch[0]);
+                chatResponse = innerJSON.SayText || rawText;
+            } catch {
+                chatResponse = rawText;
+            }
+        } else {
+            chatResponse = rawText;
+        }
+
+    // 🟡 Caso 2: flujo n8n devolvió directamente un texto o JSON en "output"
+    } else if (parsedResponse.output) {
+        const jsonMatch = parsedResponse.output.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            try {
+                const innerJSON = JSON.parse(jsonMatch[0]);
+                chatResponse = innerJSON.SayText || parsedResponse.output;
+            } catch {
+                chatResponse = parsedResponse.output;
+            }
+        } else {
+            chatResponse = parsedResponse.output;
+        }
+
+    // 🟡 Caso 3: respuesta simple con texto plano
+    } else if (parsedResponse.text) {
+        chatResponse = parsedResponse.text;
+
+    // 🟡 Caso 4: estructura desconocida → mostrar texto limpio
+    } else {
+        chatResponse = data;
+    }
+
+} catch (e) {
+    // 🟡 Si no es JSON válido → limpiar texto buscando SayText dentro del contenido
+    const jsonMatch = data.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+        try {
+            const innerJSON = JSON.parse(jsonMatch[0]);
+            chatResponse = innerJSON.SayText || data;
+        } catch {
+            chatResponse = data;
+        }
+    } else {
+        chatResponse = data;
+    }
+}
+
+if (messagesContainer.contains(tempBotMessageDiv)) {
                     messagesContainer.removeChild(tempBotMessageDiv);
                 }
                 addMessage('bot', chatResponse);
