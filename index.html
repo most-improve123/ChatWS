@@ -622,6 +622,12 @@
 </head>
 <body>
 <script>
+    // Generar o recuperar un sessionId único por usuario
+if (!localStorage.getItem("sessionId")) {
+  localStorage.setItem("sessionId", "user-" + Date.now());
+}
+const sessionId = localStorage.getItem("sessionId");
+
     window.ChatWidgetConfig = {
         webhook: {
             url: 'https://wespark.app.n8n.cloud/webhook/a36c6e60-04b5-4191-8d7e-6e14a1830baa/chat',
@@ -828,37 +834,38 @@
             welcomeText.innerHTML = `${config.branding.welcomeText}<span>What service are you interested in?</span>`;
             optionsContainer.style.display = 'grid';
         });
-        async function startNewConversation() {
-            currentSessionId = generateUUID();
-            const data = {
-                action: "loadPreviousSession",
-                sessionId: currentSessionId,
-                route: config.webhook.route,
-                metadata: { userId: "" },
-                chatInput: "Initializing conversation"
-            };
-            try {
-                const response = await fetch(config.webhook.url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-API-KEY': 'mi_clave_secreta_123!@#'
-                    },
-                    body: JSON.stringify(data)
-                });
-                if (!response.ok) throw new Error(`Error: ${response.status}`);
-                const responseData = await response.json();
-                chatContainer.querySelector('.new-conversation').style.display = 'none';
-                chatInterface.classList.add('active');
-                const botMessageDiv = document.createElement('div');
-                botMessageDiv.className = 'chat-message bot';
-                botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
-                messagesContainer.appendChild(botMessageDiv);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
+       async function startNewConversation() {
+    currentSessionId = sessionId; // Usar el sessionId único
+    const data = {
+        action: "loadPreviousSession",
+        sessionId: currentSessionId,
+        route: config.webhook.route,
+        metadata: { userId: "" },
+        chatInput: "Initializing conversation"
+    };
+    try {
+        const response = await fetch(config.webhook.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': 'mi_clave_secreta_123!@#'
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+        const responseData = await response.json();
+        chatContainer.querySelector('.new-conversation').style.display = 'none';
+        chatInterface.classList.add('active');
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.className = 'chat-message bot';
+        botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
+        messagesContainer.appendChild(botMessageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
         async function sendMessage(message) {
             // --- BLOQUEAR SI YA SE ESTÁ PROCESANDO UN MENSAJE ---
             if (isProcessing) {
@@ -883,7 +890,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         action: "sendMessage",
-                        sessionId: currentSessionId,
+                         sessionId: sessionId,
                         route: config.webhook.route,
                         chatInput: message,
                         metadata: { userId: "" }
