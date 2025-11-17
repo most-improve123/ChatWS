@@ -512,6 +512,23 @@
             border-radius: 50%;
             animation: scaleAndColorChange 1.4s infinite ease-in-out;
         }
+        .n8n-chat-widget .initial-logo-container {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0; /* Inicialmente invisible */
+    display: block;
+    transition: opacity 0.5s ease-in-out; /* Transición suave */
+    z-index: 0;
+}
+.n8n-chat-widget .initial-logo-container img {
+    width: 150px;
+    height: 50px;
+    object-fit: cover;
+}
+
         .loading-dots span:nth-child(1) { animation-delay: 0s; }
         .loading-dots span:nth-child(2) { animation-delay: 0.4s; }
         .loading-dots span:nth-child(3) { animation-delay: 0.8s; }
@@ -635,6 +652,7 @@ const sessionId = localStorage.getItem("sessionId");
         },
         branding: {
             logo: 'https://static.wixstatic.com/media/a687f1_c2786fae17ea49feb2a93a9f377fc43d~mv2.gif',
+            initialScreenLogo: 'https://static.wixstatic.com/media/9c422e_159f139392724b29921a8045ca694a93~mv2.png', // 🔴 URL del logo inicial
             name: 'Mr. Spark',
             welcomeText: 'Hi! I’m Tom, WeSpark’s AI Assistant 👋',
             poweredBy: {
@@ -708,24 +726,29 @@ const sessionId = localStorage.getItem("sessionId");
                 </svg>
             </div>
         `;
-        const newConversationHTML = `
-            <div class="new-conversation">
-                <h2 class="welcome-text">${config.branding.welcomeText}</h2>
-                <p class="sub-welcome-text">Let’s get your quote started — this takes less than 3 minutes</p>
-                <button id="start-button" class="start-button">Start</button>
-                <div class="options-container" style="display: none;">
-                    <button class="option-btn" style="--i:0">Product Design</button>
-                    <button class="option-btn" style="--i:1">Training</button>
-                    <button class="option-btn" style="--i:2">Education Design</button>
-                    <button class="option-btn" style="--i:3">Something Else</button>
-                </div>
-                <div class="free-text-area-container" style="display: none;">
-                    <textarea class="free-text-area" placeholder="Write what you need here..."></textarea>
-                    <button class="free-text-send-button"><i class="fas fa-paper-plane"></i></button>
-                </div>
+       const newConversationHTML = `
+    <div class="new-conversation">
+        <h2 class="welcome-text">${config.branding.welcomeText}</h2>
+        <p class="sub-welcome-text">Let’s get your quote started — this takes less than 3 minutes</p>
+        <div class="initial-logo-container">
+            <img src="${config.branding.initialScreenLogo}" alt="${config.branding.name} Logo">
+        </div>
+        <button id="start-button" class="start-button">Start</button>
+        <div class="options-container" style="display: none;">
+            <button class="option-btn" style="--i:0">Product Design</button>
+            <button class="option-btn" style="--i:1">Training</button>
+            <button class="option-btn" style="--i:2">Education Design</button>
+            <button class="option-btn" style="--i:3">Something Else</button>
+        </div>
+        <div class="free-text-area-container" style="display: none;">
+            <textarea class="free-text-area" placeholder="Write what you need here..."></textarea>
+            <button class="free-text-send-button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+`;
 
-            </div>
-        `;
+
+
         const chatInterfaceHTML = `
             <div class="chat-interface">
                 <div class="chat-messages"></div>
@@ -828,12 +851,18 @@ const sessionId = localStorage.getItem("sessionId");
             });
             chatContainer.querySelector('.free-text-area-container').style.display = 'flex';
         }
-        startButton.addEventListener('click', function() {
-            startButton.style.display = 'none';
-            subWelcomeText.style.display = 'none';
-            welcomeText.innerHTML = `${config.branding.welcomeText}<span>What service are you interested in?</span>`;
-            optionsContainer.style.display = 'grid';
-        });
+       startButton.addEventListener('click', function() {
+    const initialLogoContainer = chatContainer.querySelector('.initial-logo-container');
+    initialLogoContainer.style.opacity = '1';
+    setTimeout(() => {
+        startButton.style.display = 'none';
+        subWelcomeText.style.display = 'none';
+        welcomeText.innerHTML = `${config.branding.welcomeText}<span>What service are you interested in?</span>`;
+        optionsContainer.style.display = 'grid';
+    }, 500);
+});
+
+
        async function startNewConversation() {
     currentSessionId = sessionId; // Usar el sessionId único
     const data = {
@@ -877,6 +906,14 @@ const sessionId = localStorage.getItem("sessionId");
             sendButton.disabled = true;
             freeTextArea.disabled = true;
             freeTextSendButton.disabled = true;
+         // Ocultar el logo al enviar el primer mensaje
+    const initialLogoContainer = chatContainer.querySelector('.initial-logo-container');
+    if (initialLogoContainer) {
+        initialLogoContainer.style.opacity = '0';
+        setTimeout(() => {
+            initialLogoContainer.style.display = 'none';
+        }, 500);// Tiempo para que termine el efecto de desvanecimiento
+    }
             // ----------------------------------------------------
             addMessage('user', message);
             const tempBotMessageDiv = document.createElement('div');
