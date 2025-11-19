@@ -1210,6 +1210,13 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
             button.addEventListener('click', closeChat);
         });
     })();
+    // Escuchar mensajes del sitio padre (Wix)
+window.addEventListener('message', function(event) {
+  if (event.data === 'openChat') {
+    openChat(); // Llama a la función que ya tienes para abrir el chat
+  }
+});
+
 </script>
 </body>
 </html>
