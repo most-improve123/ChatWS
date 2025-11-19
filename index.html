@@ -1016,10 +1016,10 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                     ]);
                 } else if (chatResponse.includes("Do you have a budget in mind?")) {
                     showOptions([
-                        { text: "$1,000 - $5,000", i: 0 },
-                        { text: "$5,000 - $10,000", i: 1 },
-                        { text: "$10,000 - $20,000", i: 2 },
-                        { text: "More than $20,000", i: 3 },
+                        { text: "$1K - $5K", i: 0 },
+                        { text: "$5K - $10K", i: 1 },
+                        { text: "$10K - $20K", i: 2 },
+                        { text: "More than $50K", i: 3 },
                         { text: "Less than $5K", i: 4 },
                         { text: "I'm not the one who decides", i: 5 }
                     ]);
@@ -1210,6 +1210,7 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
             button.addEventListener('click', closeChat);
         });
     })();
+    
 </script>
 </body>
 </html>
