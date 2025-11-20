@@ -1210,6 +1210,42 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
             button.addEventListener('click', closeChat);
         });
     })();
+
+
+///////////////////////////////
+    // Función para abrir el chat cuando la sección "section2" sea visible
+function setupAutoOpenOnScroll() {
+    window.addEventListener('DOMContentLoaded', function() {
+        // Usa Intersection Observer para detectar cuándo la sección es visible
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Si la sección es visible, abre el chat
+                    openChat();
+                    // Deja de observar para evitar múltiples aperturas
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 }); // Se activa cuando al menos el 50% de la sección es visible
+
+        // Intenta encontrar la sección "section2" en la página principal (fuera del iframe)
+        const checkSection = setInterval(function() {
+            // Usa el ID de la sección que me compartiste: "section2"
+            const chatSection = window.parent.document.getElementById('section2');
+            if (chatSection) {
+                clearInterval(checkSection);
+                observer.observe(chatSection);
+            }
+        }, 500); // Revisa cada 500ms
+    });
+}
+
+// Llama a la función para configurar el observador
+setupAutoOpenOnScroll();
+
+
+
+
     
 </script>
 </body>
