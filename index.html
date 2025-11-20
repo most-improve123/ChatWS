@@ -1230,8 +1230,8 @@ function setupAutoOpenOnScroll() {
 
         // Intenta encontrar la sección "section2" en la página principal (fuera del iframe)
         const checkSection = setInterval(function() {
-            // Usa el ID de la sección que me compartiste: "section2"
-            const chatSection = window.parent.document.getElementById('section2');
+            // Usa el ID de la sección que me compartiste: "#section2"
+            const chatSection = window.parent.document.getElementById('#section2');
             if (chatSection) {
                 clearInterval(checkSection);
                 observer.observe(chatSection);
