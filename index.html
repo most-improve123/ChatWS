@@ -1187,65 +1187,62 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 handleSendMessage();
             }
         });
-        function openChat() {
-            if (isChatOpen) return;
-            isChatOpen = true;
-            chatContainer.style.display = 'flex';
-            setTimeout(() => {
-                chatContainer.classList.add('open');
-            }, 10);
-        }
-        function closeChat() {
-            if (!isChatOpen) return;
-            isChatOpen = false;
-            chatContainer.classList.add('closing');
-            setTimeout(() => {
-                chatContainer.style.display = 'none';
-                chatContainer.classList.remove('closing');
-            }, 300);
-        }
+       // Función para abrir el chat
+function openChat() {
+    if (isChatOpen) return;
+    isChatOpen = true;
+    chatContainer.style.display = 'flex';
+    setTimeout(() => {
+        chatContainer.classList.add('open');
+    }, 10);
+}
+   window.addEventListener('load', function() {
+        setTimeout(function() {
+            if (!isChatOpen) {
+                openChat();
+            }
+        }, 5000);
+    });
+
+    
         toggleButton.addEventListener('click', openChat);
         const closeButtons = chatContainer.querySelectorAll('.close-button');
         closeButtons.forEach(button => {
             button.addEventListener('click', closeChat);
         });
-    })();
+    
+// Variable para controlar el delay
+let scrollTimeout;
 
-
-///////////////////////////////
-    // Función para abrir el chat cuando la sección "section2" sea visible
-function setupAutoOpenOnScroll() {
-    window.addEventListener('DOMContentLoaded', function() {
-        // Usa Intersection Observer para detectar cuándo la sección es visible
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Si la sección es visible, abre el chat
-                    openChat();
-                    // Deja de observar para evitar múltiples aperturas
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 }); // Se activa cuando al menos el 50% de la sección es visible
-
-        // Intenta encontrar la sección "section2" en la página principal (fuera del iframe)
-        const checkSection = setInterval(function() {
-            // Usa el ID de la sección que me compartiste: "#section2"
-            const chatSection = window.parent.document.getElementById('#section2');
-            if (chatSection) {
-                clearInterval(checkSection);
-                observer.observe(chatSection);
-            }
-        }, 500); // Revisa cada 500ms
-    });
+// Función para abrir el chat después de 5 segundos
+function startChatCountdown() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function() {
+        if (!isChatOpen) {
+            openChat();
+        }
+    }, 5000); // 5 segundos de delay
 }
 
-// Llama a la función para configurar el observador
-setupAutoOpenOnScroll();
+// Función para cerrar el chat
+function closeChat() {
+    if (!isChatOpen) return;
+    isChatOpen = false;
+    chatContainer.classList.add('closing');
+    setTimeout(() => {
+        chatContainer.style.display = 'none';
+        chatContainer.classList.remove('closing');
+    }, 300);
+    // Si el usuario está en el 99%, reiniciar el temporizador al cerrar
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const pageHeight = document.body.scrollHeight;
+    if (scrollPosition >= pageHeight * 0.99) {
+        startChatCountdown();
+    }
+}
 
-
-
-
+    })();
+    
     
 </script>
 </body>
