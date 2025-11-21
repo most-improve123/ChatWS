@@ -528,7 +528,6 @@
     height: 50px;
     object-fit: cover;
 }
-
         .loading-dots span:nth-child(1) { animation-delay: 0s; }
         .loading-dots span:nth-child(2) { animation-delay: 0.4s; }
         .loading-dots span:nth-child(3) { animation-delay: 0.8s; }
@@ -537,7 +536,6 @@
             50% { transform: scale(1.5); background-color: var(--dark-yellow); }
             100% { transform: scale(1); background-color: var(--primary-yellow); }
         }
-
         /* --- RESPONSIVIDAD Y ESCALABILIDAD --- */
         .n8n-chat-widget .chat-container {
             width: 95vw;
@@ -545,7 +543,6 @@
             max-width: 400px;
             max-height: 700px;
         }
-
         @media (min-width: 480px) and (max-width: 767px) {
             .n8n-chat-widget .chat-container {
                 width: 90vw;
@@ -566,7 +563,6 @@
                 font-size: 14px;
             }
         }
-
         @media (min-width: 768px) and (max-width: 1023px) {
             .n8n-chat-widget .chat-container {
                 width: 80vw;
@@ -584,7 +580,6 @@
                 font-size: 15px;
             }
         }
-
         @media (min-width: 1024px) {
             .n8n-chat-widget .chat-container {
                 width: 400px;
@@ -595,7 +590,6 @@
                 height: 90px;
             }
         }
-
         /* --- Ajustes para iPad en modo horizontal --- */
         @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
             .n8n-chat-widget .chat-container {
@@ -603,7 +597,6 @@
                 height: 70vh;
             }
         }
-
         /* --- Ajustes para iPhone y dispositivos pequeños --- */
         @media (max-width: 479px) {
             .n8n-chat-widget .chat-container {
@@ -640,10 +633,10 @@
 <body>
 <script>
     // Generar o recuperar un sessionId único por usuario
-if (!localStorage.getItem("sessionId")) {
-  localStorage.setItem("sessionId", "user-" + Date.now());
-}
-const sessionId = localStorage.getItem("sessionId");
+    if (!localStorage.getItem("sessionId")) {
+      localStorage.setItem("sessionId", "user-" + Date.now());
+    }
+    const sessionId = localStorage.getItem("sessionId");
 
     window.ChatWidgetConfig = {
         webhook: {
@@ -652,7 +645,7 @@ const sessionId = localStorage.getItem("sessionId");
         },
         branding: {
             logo: 'https://static.wixstatic.com/media/a687f1_c2786fae17ea49feb2a93a9f377fc43d~mv2.gif',
-            initialScreenLogo: 'https://static.wixstatic.com/media/9c422e_159f139392724b29921a8045ca694a93~mv2.png', // 🔴 URL del logo inicial
+            initialScreenLogo: 'https://static.wixstatic.com/media/9c422e_159f139392724b29921a8045ca694a93~mv2.png',
             name: 'Mr. Spark',
             welcomeText: 'Hi! I’m Tom, WeSpark’s AI Assistant 👋',
             poweredBy: {
@@ -668,6 +661,7 @@ const sessionId = localStorage.getItem("sessionId");
             fontColor: '#333333'
         }
     };
+
     (function() {
         const defaultConfig = {
             webhook: {
@@ -698,15 +692,18 @@ const sessionId = localStorage.getItem("sessionId");
         window.N8NChatWidgetInitialized = true;
         let currentSessionId = '';
         let isChatOpen = false;
-        let isProcessing = false; // <-- Variable para bloquear envío de mensajes
+        let isProcessing = false;
+
         const widgetContainer = document.createElement('div');
         widgetContainer.className = 'n8n-chat-widget';
         widgetContainer.style.setProperty('--n8n-chat-primary-color', config.style.primaryColor);
         widgetContainer.style.setProperty('--n8n-chat-secondary-color', config.style.secondaryColor);
         widgetContainer.style.setProperty('--n8n-chat-background-color', config.style.backgroundColor);
         widgetContainer.style.setProperty('--n8n-chat-font-color', config.style.fontColor);
+
         const chatContainer = document.createElement('div');
         chatContainer.className = `chat-container${config.style.position === 'left' ? ' position-left' : ''}`;
+
         const brandHeaderHTML = `
             <div class="brand-header">
                 <img src="${config.branding.logo}" alt="${config.branding.name}">
@@ -726,28 +723,27 @@ const sessionId = localStorage.getItem("sessionId");
                 </svg>
             </div>
         `;
-       const newConversationHTML = `
-    <div class="new-conversation">
-        <h2 class="welcome-text">${config.branding.welcomeText}</h2>
-        <p class="sub-welcome-text">Let’s get your quote started — this takes less than 3 minutes</p>
-        <div class="initial-logo-container">
-            <img src="${config.branding.initialScreenLogo}" alt="${config.branding.name} Logo">
-        </div>
-        <button id="start-button" class="start-button">Start</button>
-        <div class="options-container" style="display: none;">
-            <button class="option-btn" style="--i:0">Product Design</button>
-            <button class="option-btn" style="--i:1">Training</button>
-            <button class="option-btn" style="--i:2">Education Design</button>
-            <button class="option-btn" style="--i:3">Something Else</button>
-        </div>
-        <div class="free-text-area-container" style="display: none;">
-            <textarea class="free-text-area" placeholder="Write what you need here..."></textarea>
-            <button class="free-text-send-button"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-`;
 
-
+        const newConversationHTML = `
+            <div class="new-conversation">
+                <h2 class="welcome-text">${config.branding.welcomeText}</h2>
+                <p class="sub-welcome-text">Let’s get your quote started — this takes less than 3 minutes</p>
+                <div class="initial-logo-container">
+                    <img src="${config.branding.initialScreenLogo}" alt="${config.branding.name} Logo">
+                </div>
+                <button id="start-button" class="start-button">Start</button>
+                <div class="options-container" style="display: none;">
+                    <button class="option-btn" style="--i:0">Product Design</button>
+                    <button class="option-btn" style="--i:1">Training</button>
+                    <button class="option-btn" style="--i:2">Education Design</button>
+                    <button class="option-btn" style="--i:3">Something Else</button>
+                </div>
+                <div class="free-text-area-container" style="display: none;">
+                    <textarea class="free-text-area" placeholder="Write what you need here..."></textarea>
+                    <button class="free-text-send-button"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        `;
 
         const chatInterfaceHTML = `
             <div class="chat-interface">
@@ -771,13 +767,17 @@ const sessionId = localStorage.getItem("sessionId");
                 </div>
             </div>
         `;
+
         chatContainer.innerHTML = brandHeaderHTML + newConversationHTML + chatInterfaceHTML;
+
         const toggleButton = document.createElement('button');
         toggleButton.className = `chat-toggle${config.style.position === 'left' ? ' position-left' : ''}`;
         toggleButton.innerHTML = `<i class="fas fa-comments"></i>`;
+
         widgetContainer.appendChild(chatContainer);
         widgetContainer.appendChild(toggleButton);
         document.body.appendChild(widgetContainer);
+
         const optionButtons = chatContainer.querySelectorAll('.option-btn');
         const chatInterface = chatContainer.querySelector('.chat-interface');
         const messagesContainer = chatContainer.querySelector('.chat-messages');
@@ -792,6 +792,7 @@ const sessionId = localStorage.getItem("sessionId");
         const optionsContainer = chatContainer.querySelector('.options-container');
         const welcomeText = chatContainer.querySelector('.welcome-text');
         const subWelcomeText = chatContainer.querySelector('.sub-welcome-text');
+
         function addMessage(sender, message) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-message ${sender}`;
@@ -799,6 +800,7 @@ const sessionId = localStorage.getItem("sessionId");
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
+
         async function sendToWebhook(message) {
             try {
                 const response = await fetch(config.webhook.url, {
@@ -817,6 +819,7 @@ const sessionId = localStorage.getItem("sessionId");
                 addMessage("bot", "Error al conectar con el servidor.");
             }
         }
+
         function generateUUID() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 const r = Math.random() * 16 | 0;
@@ -824,6 +827,7 @@ const sessionId = localStorage.getItem("sessionId");
                 return v.toString(16);
             });
         }
+
         function updateOptions() {
             const newOptions = [
                 { text: "Innovation Consulting", i: 4 },
@@ -851,52 +855,51 @@ const sessionId = localStorage.getItem("sessionId");
             });
             chatContainer.querySelector('.free-text-area-container').style.display = 'flex';
         }
-       startButton.addEventListener('click', function() {
-    const initialLogoContainer = chatContainer.querySelector('.initial-logo-container');
-    initialLogoContainer.style.opacity = '1';
-    setTimeout(() => {
-        startButton.style.display = 'none';
-        subWelcomeText.style.display = 'none';
-        welcomeText.innerHTML = `${config.branding.welcomeText}<span>What service are you interested in?</span>`;
-        optionsContainer.style.display = 'grid';
-    }, 500);
-});
 
-
-       async function startNewConversation() {
-    currentSessionId = sessionId; // Usar el sessionId único
-    const data = {
-        action: "loadPreviousSession",
-        sessionId: currentSessionId,
-        route: config.webhook.route,
-        metadata: { userId: "" },
-        chatInput: "Initializing conversation"
-    };
-    try {
-        const response = await fetch(config.webhook.url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-API-KEY': 'mi_clave_secreta_123!@#'
-            },
-            body: JSON.stringify(data)
+        startButton.addEventListener('click', function() {
+            const initialLogoContainer = chatContainer.querySelector('.initial-logo-container');
+            initialLogoContainer.style.opacity = '1';
+            setTimeout(() => {
+                startButton.style.display = 'none';
+                subWelcomeText.style.display = 'none';
+                welcomeText.innerHTML = `${config.branding.welcomeText}<span>What service are you interested in?</span>`;
+                optionsContainer.style.display = 'grid';
+            }, 500);
         });
-        if (!response.ok) throw new Error(`Error: ${response.status}`);
-        const responseData = await response.json();
-        chatContainer.querySelector('.new-conversation').style.display = 'none';
-        chatInterface.classList.add('active');
-        const botMessageDiv = document.createElement('div');
-        botMessageDiv.className = 'chat-message bot';
-        botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
-        messagesContainer.appendChild(botMessageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
+
+        async function startNewConversation() {
+            currentSessionId = sessionId;
+            const data = {
+                action: "loadPreviousSession",
+                sessionId: currentSessionId,
+                route: config.webhook.route,
+                metadata: { userId: "" },
+                chatInput: "Initializing conversation"
+            };
+            try {
+                const response = await fetch(config.webhook.url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-KEY': 'mi_clave_secreta_123!@#'
+                    },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) throw new Error(`Error: ${response.status}`);
+                const responseData = await response.json();
+                chatContainer.querySelector('.new-conversation').style.display = 'none';
+                chatInterface.classList.add('active');
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'chat-message bot';
+                botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
+                messagesContainer.appendChild(botMessageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
 
         async function sendMessage(message) {
-            // --- BLOQUEAR SI YA SE ESTÁ PROCESANDO UN MENSAJE ---
             if (isProcessing) {
                 addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
                 return;
@@ -906,99 +909,87 @@ const sessionId = localStorage.getItem("sessionId");
             sendButton.disabled = true;
             freeTextArea.disabled = true;
             freeTextSendButton.disabled = true;
-         // Ocultar el logo al enviar el primer mensaje
-    const initialLogoContainer = chatContainer.querySelector('.initial-logo-container');
-    if (initialLogoContainer) {
-        initialLogoContainer.style.opacity = '0';
-        setTimeout(() => {
-            initialLogoContainer.style.display = 'none';
-        }, 500);// Tiempo para que termine el efecto de desvanecimiento
-    }
-            // ----------------------------------------------------
+
+            const initialLogoContainer = chatContainer.querySelector('.initial-logo-container');
+            if (initialLogoContainer) {
+                initialLogoContainer.style.opacity = '0';
+                setTimeout(() => {
+                    initialLogoContainer.style.display = 'none';
+                }, 500);
+            }
+
             addMessage('user', message);
             const tempBotMessageDiv = document.createElement('div');
             tempBotMessageDiv.className = 'chat-message bot';
             tempBotMessageDiv.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span>';
             messagesContainer.appendChild(tempBotMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
             try {
                 const response = await fetch(config.webhook.url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         action: "sendMessage",
-                         sessionId: sessionId,
+                        sessionId: sessionId,
                         route: config.webhook.route,
                         chatInput: message,
                         metadata: { userId: "" }
                     })
                 });
                 const data = await response.text();
-let chatResponse = '';
+                let chatResponse = '';
+                try {
+                    const parsedResponse = JSON.parse(data);
+                    if (parsedResponse.result && parsedResponse.result.text) {
+                        const rawText = parsedResponse.result.text;
+                        const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+                        if (jsonMatch) {
+                            try {
+                                const innerJSON = JSON.parse(jsonMatch[0]);
+                                chatResponse = innerJSON.SayText || rawText;
+                            } catch {
+                                chatResponse = rawText;
+                            }
+                        } else {
+                            chatResponse = rawText;
+                        }
+                    } else if (parsedResponse.output) {
+                        const jsonMatch = parsedResponse.output.match(/\{[\s\S]*\}/);
+                        if (jsonMatch) {
+                            try {
+                                const innerJSON = JSON.parse(jsonMatch[0]);
+                                chatResponse = innerJSON.SayText || parsedResponse.output;
+                            } catch {
+                                chatResponse = parsedResponse.output;
+                            }
+                        } else {
+                            chatResponse = parsedResponse.output;
+                        }
+                    } else if (parsedResponse.text) {
+                        chatResponse = parsedResponse.text;
+                    } else {
+                        chatResponse = data;
+                    }
+                } catch (e) {
+                    const jsonMatch = data.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) {
+                        try {
+                            const innerJSON = JSON.parse(jsonMatch[0]);
+                            chatResponse = innerJSON.SayText || data;
+                        } catch {
+                            chatResponse = data;
+                        }
+                    } else {
+                        chatResponse = data;
+                    }
+                }
 
-try {
-    // Intentar analizar cualquier estructura JSON posible
-    const parsedResponse = JSON.parse(data);
-
-    // 🟡 Caso 1: respuesta directa de Telegram (tiene "result.text")
-    if (parsedResponse.result && parsedResponse.result.text) {
-        const rawText = parsedResponse.result.text;
-
-        // Intentar extraer un bloque JSON dentro del texto (por ejemplo { "SayText": ... })
-        const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-            try {
-                const innerJSON = JSON.parse(jsonMatch[0]);
-                chatResponse = innerJSON.SayText || rawText;
-            } catch {
-                chatResponse = rawText;
-            }
-        } else {
-            chatResponse = rawText;
-        }
-
-    // 🟡 Caso 2: flujo n8n devolvió directamente un texto o JSON en "output"
-    } else if (parsedResponse.output) {
-        const jsonMatch = parsedResponse.output.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-            try {
-                const innerJSON = JSON.parse(jsonMatch[0]);
-                chatResponse = innerJSON.SayText || parsedResponse.output;
-            } catch {
-                chatResponse = parsedResponse.output;
-            }
-        } else {
-            chatResponse = parsedResponse.output;
-        }
-
-    // 🟡 Caso 3: respuesta simple con texto plano
-    } else if (parsedResponse.text) {
-        chatResponse = parsedResponse.text;
-
-    // 🟡 Caso 4: estructura desconocida → mostrar texto limpio
-    } else {
-        chatResponse = data;
-    }
-
-} catch (e) {
-    // 🟡 Si no es JSON válido → limpiar texto buscando SayText dentro del contenido
-    const jsonMatch = data.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-        try {
-            const innerJSON = JSON.parse(jsonMatch[0]);
-            chatResponse = innerJSON.SayText || data;
-        } catch {
-            chatResponse = data;
-        }
-    } else {
-        chatResponse = data;
-    }
-}
-
-if (messagesContainer.contains(tempBotMessageDiv)) {
+                if (messagesContainer.contains(tempBotMessageDiv)) {
                     messagesContainer.removeChild(tempBotMessageDiv);
                 }
                 addMessage('bot', chatResponse);
+
                 if (chatResponse.includes("What service are you interested in?")) {
                     showOptions([
                         { text: "Product Design", i: 0 },
@@ -1021,7 +1012,6 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                         { text: "More than $50K", i: 2 },
                         { text: "Less than $5K", i: 3 },
                         { text: "I'm not the one who decides", i: 4 }
-                       
                     ]);
                 }
             } catch (err) {
@@ -1031,15 +1021,14 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 }
                 addMessage('bot', "Lo siento, hubo un error al enviar tu mensaje.");
             } finally {
-                // --- HABILITAR DE NUEVO EL ENVÍO DE MENSAJES ---
                 isProcessing = false;
                 textarea.disabled = false;
                 sendButton.disabled = false;
                 freeTextArea.disabled = false;
                 freeTextSendButton.disabled = false;
-                // ------------------------------------------------
             }
         }
+
         function showOptions(options) {
             const optionsContainer = document.createElement('div');
             optionsContainer.className = 'options-container';
@@ -1050,12 +1039,10 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 button.style.setProperty('--i', option.i);
                 button.textContent = option.text;
                 button.addEventListener('click', function() {
-                    // --- BLOQUEAR SI SE ESTÁ PROCESANDO ---
                     if (isProcessing) {
                         addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
                         return;
                     }
-                    // --------------------------------
                     const message = button.textContent;
                     sendMessage(message);
                     optionsContainer.style.display = 'none';
@@ -1065,6 +1052,7 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
             messagesContainer.appendChild(optionsContainer);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
+
         function handleFileUpload(event) {
             const file = event.target.files[0];
             if (file) {
@@ -1083,6 +1071,7 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 reader.readAsDataURL(file);
             }
         }
+
         uploadButton.addEventListener('click', () => {
             const fileInput = document.createElement('input');
             fileInput.type = 'file';
@@ -1092,23 +1081,24 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
             fileInput.click();
             document.body.removeChild(fileInput);
         });
+
         emojiButton.addEventListener('click', () => {
             emojiPicker.classList.toggle('show');
         });
+
         emojiPicker.querySelectorAll('button').forEach(button => {
             button.addEventListener('click', () => {
                 textarea.value += button.textContent;
                 emojiPicker.classList.remove('show');
             });
         });
+
         optionButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // --- BLOQUEAR SI SE ESTÁ PROCESANDO ---
                 if (isProcessing) {
                     addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
                     return;
                 }
-                // --------------------------------
                 const message = button.textContent;
                 if (message === 'Something Else') {
                     updateOptions();
@@ -1123,13 +1113,12 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 }
             });
         });
+
         freeTextSendButton.addEventListener('click', () => {
-            // --- BLOQUEAR SI SE ESTÁ PROCESANDO ---
             if (isProcessing) {
                 addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
                 return;
             }
-            // --------------------------------
             const message = freeTextArea.value.trim();
             if (message) {
                 if (!currentSessionId) {
@@ -1142,15 +1131,14 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 freeTextArea.value = '';
             }
         });
+
         freeTextArea.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                // --- BLOQUEAR SI SE ESTÁ PROCESANDO ---
                 if (isProcessing) {
                     addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
                     return;
                 }
-                // --------------------------------
                 const message = freeTextArea.value.trim();
                 if (message) {
                     if (!currentSessionId) {
@@ -1164,78 +1152,64 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 }
             }
         });
+
         function handleSendMessage() {
-            // --- BLOQUEAR SI SE ESTÁ PROCESANDO ---
             if (isProcessing) {
                 addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
                 return;
             }
-            // --------------------------------
             const message = textarea.value.trim();
             if (message) {
                 sendMessage(message);
                 textarea.value = '';
             }
         }
+
         sendButton.addEventListener("click", (e) => {
             e.preventDefault();
             handleSendMessage();
         });
+
+        // Cambio: Al presionar Enter, solo salto de línea
         textarea.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
+            if (e.key === 'Enter' && e.ctrlKey) {
                 e.preventDefault();
                 handleSendMessage();
             }
         });
-        // Escucha mensajes desde la página principal de Wix
-window.addEventListener("message", (event) => {
-    // Verifica que el mensaje sea de confianza (opcional, pero recomendado)
-    // if (event.origin !== "https://tudominio.com") return; // Reemplaza con el dominio de tu página de Wix
 
-    // Si el mensaje es para abrir el chat
-    if (event.data && event.data.action === "openChat") {
-        openChat(); // Llama a la función que abre el chat
-    }
-});
+        window.addEventListener("message", (event) => {
+            if (event.data && event.data.action === "openChat") {
+                openChat();
+            }
+        });
 
-       // Función para abrir el chat
-function openChat() {
-    if (isChatOpen) return;
-    isChatOpen = true;
-    chatContainer.style.display = 'flex';
-    setTimeout(() => {
-        chatContainer.classList.add('open');
-    }, 10);
-}
+        function openChat() {
+            if (isChatOpen) return;
+            isChatOpen = true;
+            chatContainer.style.display = 'flex';
+            setTimeout(() => {
+                chatContainer.classList.add('open');
+            }, 10);
+        }
 
-
-    
         toggleButton.addEventListener('click', openChat);
+
         const closeButtons = chatContainer.querySelectorAll('.close-button');
         closeButtons.forEach(button => {
             button.addEventListener('click', closeChat);
         });
-    
 
-
-
-
-// Función para cerrar el chat
-function closeChat() {
-    if (!isChatOpen) return;
-    isChatOpen = false;
-    chatContainer.classList.add('closing');
-    setTimeout(() => {
-        chatContainer.style.display = 'none';
-        chatContainer.classList.remove('closing');
-    }, 300);
-    // Si el usuario está en el 99%, reiniciar el temporizador al cerrar
-  
-}
-
+        function closeChat() {
+            if (!isChatOpen) return;
+            isChatOpen = false;
+            chatContainer.classList.add('closing');
+            setTimeout(() => {
+                chatContainer.style.display = 'none';
+                chatContainer.classList.remove('closing');
+            }, 300);
+        }
     })();
-    
-    
 </script>
 </body>
 </html>
