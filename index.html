@@ -1187,15 +1187,14 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 handleSendMessage();
             }
         });
-       // Función para abrir el chat
-function openChat() {
-    if (isChatOpen) return;
-    isChatOpen = true;
-    chatContainer.style.display = 'flex';
-    setTimeout(() => {
-        chatContainer.classList.add('open');
-    }, 10);
-}
+        function openChat() {
+            if (isChatOpen) return;
+            isChatOpen = true;
+            chatContainer.style.display = 'flex';
+            setTimeout(() => {
+                chatContainer.classList.add('open');
+            }, 10);
+        }
    window.addEventListener('load', function() {
         setTimeout(function() {
             if (!isChatOpen) {
@@ -1204,7 +1203,15 @@ function openChat() {
         }, 5000);
     });
 
-    
+        function closeChat() {
+            if (!isChatOpen) return;
+            isChatOpen = false;
+            chatContainer.classList.add('closing');
+            setTimeout(() => {
+                chatContainer.style.display = 'none';
+                chatContainer.classList.remove('closing');
+            }, 300);
+        }
         toggleButton.addEventListener('click', openChat);
         const closeButtons = chatContainer.querySelectorAll('.close-button');
         closeButtons.forEach(button => {
@@ -1218,13 +1225,22 @@ let scrollTimeout;
 function startChatCountdown() {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(function() {
-        if (!isChatOpen) {
-            openChat();
-        }
+        openChat();
     }, 5000); // 5 segundos de delay
 }
 
-// Función para cerrar el chat
+// Abrir el chat cuando el usuario llegue al 99% de la página
+window.addEventListener('scroll', function() {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const pageHeight = document.body.scrollHeight;
+
+    // Si el usuario llegó al 99% de la página
+    if (scrollPosition >= pageHeight * 0.99) {
+        startChatCountdown();
+    }
+});
+
+// Reiniciar el listener cuando el chat se cierre
 function closeChat() {
     if (!isChatOpen) return;
     isChatOpen = false;
@@ -1233,13 +1249,12 @@ function closeChat() {
         chatContainer.style.display = 'none';
         chatContainer.classList.remove('closing');
     }, 300);
-    // Si el usuario está en el 99%, reiniciar el temporizador al cerrar
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const pageHeight = document.body.scrollHeight;
-    if (scrollPosition >= pageHeight * 0.99) {
-        startChatCountdown();
-    }
 }
+
+
+
+
+
 
     })();
     
