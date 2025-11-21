@@ -1187,60 +1187,40 @@ if (messagesContainer.contains(tempBotMessageDiv)) {
                 handleSendMessage();
             }
         });
-        function openChat() {
-            if (isChatOpen) return;
-            isChatOpen = true;
-            chatContainer.style.display = 'flex';
-            setTimeout(() => {
-                chatContainer.classList.add('open');
-            }, 10);
-        }
-   window.addEventListener('load', function() {
-        setTimeout(function() {
-            if (!isChatOpen) {
-                openChat();
-            }
-        }, 5000);
-    });
+        // Escucha mensajes desde la página principal de Wix
+window.addEventListener("message", (event) => {
+    // Verifica que el mensaje sea de confianza (opcional, pero recomendado)
+    // if (event.origin !== "https://tudominio.com") return; // Reemplaza con el dominio de tu página de Wix
 
-        function closeChat() {
-            if (!isChatOpen) return;
-            isChatOpen = false;
-            chatContainer.classList.add('closing');
-            setTimeout(() => {
-                chatContainer.style.display = 'none';
-                chatContainer.classList.remove('closing');
-            }, 300);
-        }
+    // Si el mensaje es para abrir el chat
+    if (event.data && event.data.action === "openChat") {
+        openChat(); // Llama a la función que abre el chat
+    }
+});
+
+       // Función para abrir el chat
+function openChat() {
+    if (isChatOpen) return;
+    isChatOpen = true;
+    chatContainer.style.display = 'flex';
+    setTimeout(() => {
+        chatContainer.classList.add('open');
+    }, 10);
+}
+
+
+    
         toggleButton.addEventListener('click', openChat);
         const closeButtons = chatContainer.querySelectorAll('.close-button');
         closeButtons.forEach(button => {
             button.addEventListener('click', closeChat);
         });
     
-// Variable para controlar el delay
-let scrollTimeout;
 
-// Función para abrir el chat después de 5 segundos
-function startChatCountdown() {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(function() {
-        openChat();
-    }, 5000); // 5 segundos de delay
-}
 
-// Abrir el chat cuando el usuario llegue al 99% de la página
-window.addEventListener('scroll', function() {
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const pageHeight = document.body.scrollHeight;
 
-    // Si el usuario llegó al 99% de la página
-    if (scrollPosition >= pageHeight * 0.99) {
-        startChatCountdown();
-    }
-});
 
-// Reiniciar el listener cuando el chat se cierre
+// Función para cerrar el chat
 function closeChat() {
     if (!isChatOpen) return;
     isChatOpen = false;
@@ -1249,12 +1229,9 @@ function closeChat() {
         chatContainer.style.display = 'none';
         chatContainer.classList.remove('closing');
     }, 300);
+    // Si el usuario está en el 99%, reiniciar el temporizador al cerrar
+  
 }
-
-
-
-
-
 
     })();
     
