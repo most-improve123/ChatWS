@@ -736,6 +736,7 @@
                     <button class="option-btn" style="--i:0">Product Design</button>
                     <button class="option-btn" style="--i:1">Training</button>
                     <button class="option-btn" style="--i:2">Education Design</button>
+                    <button class="option-btn" style="--i:3">Bitcoin</button>
                     <button class="option-btn" style="--i:3">Something Else</button>
                 </div>
                 <div class="free-text-area-container" style="display: none;">
@@ -1094,25 +1095,84 @@
         });
 
         optionButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if (isProcessing) {
-                    addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
-                    return;
-                }
-                const message = button.textContent;
-                if (message === 'Something Else') {
-                    updateOptions();
-                } else {
-                    if (!currentSessionId) {
-                        startNewConversation().then(() => {
-                            sendMessage(message);
-                        });
-                    } else {
+    button.addEventListener('click', () => {
+        if (isProcessing) {
+            addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
+            return;
+        }
+        const message = button.textContent;
+        if (message === 'Something Else') {
+            updateOptions();
+        } else if (message === 'Bitcoin') {
+            showBitcoinOptions(); // Llama a la función para mostrar las opciones de Bitcoin
+        } else {
+            if (!currentSessionId) {
+                startNewConversation().then(() => {
+                    sendMessage(message);
+                });
+            } else {
+                sendMessage(message);
+            }
+        }
+    });
+});
+
+function showBitcoinOptions() {
+    // Oculta el contenedor de opciones actual
+    const currentOptionsContainer = chatContainer.querySelector('.options-container');
+    if (currentOptionsContainer) {
+        currentOptionsContainer.style.display = 'none';
+    }
+
+    // Crea un nuevo contenedor para las opciones de Bitcoin
+    const bitcoinOptionsContainer = document.createElement('div');
+    bitcoinOptionsContainer.className = 'options-container';
+    bitcoinOptionsContainer.style.display = 'grid';
+
+    // Define las opciones de Bitcoin
+    const bitcoinOptions = [
+        { text: "Bitcoin Education", i: 0 },
+        { text: "Bitcoin Training", i: 1 },
+        { text: "Bitcoin Marketing", i: 2 },
+        { text: "Something Else", i: 3 }
+    ];
+
+    // Agrega cada opción al contenedor
+    bitcoinOptions.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.style.setProperty('--i', option.i);
+        button.textContent = option.text;
+        button.addEventListener('click', function() {
+            if (isProcessing) {
+                addMessage('bot', "Por favor, espera a que termine la respuesta actual.");
+                return;
+            }
+            const message = button.textContent;
+            if (message === 'Something Else') {
+                 const allOptions = chatContainer.querySelectorAll('.options-container');
+    allOptions.forEach(container => container.remove());
+
+    // Mostrar solo el área de texto
+    const freeTextContainer = chatContainer.querySelector('.free-text-area-container');
+    freeTextContainer.style.display = 'flex';
+            } else {
+                if (!currentSessionId) {
+                    startNewConversation().then(() => {
                         sendMessage(message);
-                    }
+                    });
+                } else {
+                    sendMessage(message);
                 }
-            });
+            }
         });
+        bitcoinOptionsContainer.appendChild(button);
+    });
+
+    // Agrega el contenedor de opciones de Bitcoin al chat
+    const newConversationDiv = chatContainer.querySelector('.new-conversation');
+    newConversationDiv.appendChild(bitcoinOptionsContainer);
+}
 
         freeTextSendButton.addEventListener('click', () => {
             if (isProcessing) {
